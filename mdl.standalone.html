@@ -1,3 +1,15 @@
+<!--
+  This example is a cut down version of Google's Web Start Kit. It was created to mimic the layout of a simple
+  Polymer application with a narrow, single row, header. Specifically, it was created so that a redirect out of
+  a Polymer application to an external, static, web page would not create a jarring style change.
+
+  For further information about Google's Material Design Lite visit: https://www.getmdl.io
+
+  A fuller example of how to get started with Material Design Lite is provided by: https://github.com/google/web-starter-kit
+
+  Many thanks to Google for providing an abundance of great development tools.
+-->
+
 <!doctype html>
 <html lang="">
 <head>
@@ -5,10 +17,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Standalone Material Design Lite</title>
 
-    <!-- Roboto font used by Android -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <title>Standalone Material Design Lite</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -17,38 +27,56 @@
     <!-- Per Material Design specs, your "dark primary" color is recommended. -->
     <!-- This is Google's "blue-grey-700" color". Note that the palette's primary
          color is "blue-grey-500 (#607D8B). -->
-    <meta name="theme-color" content="#455A64">
+    <!-- See: https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android ->
+<meta name="theme-color" content="#455A64">
 
     <!-- Material Design Lite styles -->
-    <!-- Generate a customize style at https://www.getmdl.io/customize/index.html
+    <!-- Generate a customized style at https://www.getmdl.io/customize/index.html
+
          If you want to build the mdl library using a custom palette see:
          https://github.com/google/web-starter-kit/blob/master/docs/mdl-sass.md
+
          Here is the Material Design color guidance:
          https://www.google.com/design/spec/style/color.html#color-color-palette
-         If you are only using a few mdl compoments and you want a custom palette then you
+
+         If you are only using a few mdl components, and you want a custom palette, then you
          may wish to simply override the colors in your own css (rather than rebuilding
-         then entire css library). See the mdl-layout__header example below.
+         the entire mdl library and then having to host it yourself - just for the sake of
+         a few color changes). See the mdl-layout__header example below.
      -->
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-blue.min.css"/>
+
+    <!-- Roboto font used by Android -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    <!-- Material Design icon library. See: http://google.github.io/material-design-icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <style>
         body {
             font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
+
         /* If you only use a few mdl components and you have a custom palette then you may want to
-        simply override the mdl component color. e.g. this override sets Google's Material Design
-        "green-500" color. */
+        simply override the mdl component color, e.g. this override sets the header Google's Material
+        Design "green-500" color. */
         /*
         .mdl-layout__header {
             background-color: #4CAF50;
         }
         */
+
         .standalone-title {
             font-size: 18px;
         }
+
         #mainContent {
             padding-left: 32px;
             padding-right: 32px;
+        }
+
+        .header-standin-icon {
+            color: white;
         }
     </style>
 </head>
@@ -58,9 +86,22 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-shadow--3dp">
         <div class="mdl-layout__header-row">
-            <span class="standalone-title">Standalone Material Design Lite</span>
+            <span class="mdl-layout-title">Standalone Material Design Lite</span>
+            <!-- <span class="standalone-title">Standalone Material Design Lite</span> -->
         </div>
     </header>
+
+    <!--
+    Create the menu drawer. This places a "hamburger" menu icon to the left of the header title.
+    <div class="mdl-layout__drawer">
+            Menu content goes here. See: https://www.getmdl.io/components/index.html#layout-section
+    </div>
+    -->
+
+    <!-- If no menu drawer then place an icon  as a standin for the "hamburger" icon. -->
+    <div class="header-standin-icon mdl-layout__drawer-button">
+        <i class="material-icons">lightbulb_outline</i>
+    </div>
 
     <main class="mdl-layout__content">
 
