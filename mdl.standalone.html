@@ -28,7 +28,7 @@
     <!-- This is Google's "blue-grey-700" color". Note that the palette's primary
          color is "blue-grey-500 (#607D8B). -->
     <!-- See: https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android ->
-<meta name="theme-color" content="#455A64">
+    <meta name="theme-color" content="#455A64">
 
     <!-- Material Design Lite styles -->
     <!-- Generate a customized style at https://www.getmdl.io/customize/index.html
@@ -45,6 +45,12 @@
          a few color changes). See the mdl-layout__header example below.
      -->
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-blue.min.css"/>
+
+    <!-- The mld js code that is responsible for, amount other things, layout. It is not strictly
+    necessary for this to be in the header. It was placed in the header, here, to work around 
+    problems with incomplete page layout upon initial loading of this page in the Android 4.4 WebView.
+    -->
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.min.js"></script>
 
     <!-- Roboto font used by Android -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -78,6 +84,20 @@
         .header-standin-icon {
             color: white;
         }
+
+        .mdl-mini-footer.small-footer {
+            max-height: 16px;
+            min-height: 16px;
+            padding-top: 12px;
+            padding-bottom: 20px;
+        }
+
+        /* The default mdl styles adjust the line height and throughs off the li vertical
+           alignment on wide screens. Fix it for this demo. */
+        .small-footer li {
+            line-height: 24px;
+        }
+
     </style>
 </head>
 
@@ -193,9 +213,8 @@
 
     </main>
 
-    <footer class="mdl-mini-footer">
+    <footer class="mdl-mini-footer small-footer">
         <div class="mdl-mini-footer__left-section">
-            <div class="mdl-logo">Contact:</div>
             <ul class="mdl-mini-footer__link-list">
                 <li><a href="mailto:nobody@example.com">nobody@example.com</a></li>
             </ul>
@@ -205,8 +224,6 @@
     </footer>
 
 </div>
-
-<script src="https://storage.googleapis.com/code.getmdl.io/1.1.3/material.min.js"></script>
 
 </body>
 </html>
