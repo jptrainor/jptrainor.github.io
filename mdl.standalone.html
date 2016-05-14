@@ -72,17 +72,23 @@
         }
         */
 
-        .standalone-title {
-            font-size: 18px;
+        /* Fixed height and padding and height for this simple layout. */
+        .mdl-layout__header-row {
+            padding-left: 64px;
+            height: 64px;
+        }
+
+        /* Fixed header icon position for this simple layout. */
+        .header-standin-icon {
+            color: white;
+            position: absolute;
+            top: 20px;
+            left: 20px;
         }
 
         #mainContent {
             padding-left: 32px;
             padding-right: 32px;
-        }
-
-        .header-standin-icon {
-            color: white;
         }
 
         .mdl-mini-footer.small-footer {
@@ -105,6 +111,10 @@
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-shadow--3dp">
+        <!-- If no menu drawer then place an icon  as a standin for the "hamburger" icon. -->
+        <div class="header-standin-icon">
+            <i class="material-icons">lightbulb_outline</i>
+        </div>
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">Standalone Material Design Lite</span>
             <!-- <span class="standalone-title">Standalone Material Design Lite</span> -->
@@ -113,15 +123,11 @@
 
     <!--
     Create the menu drawer. This places a "hamburger" menu icon to the left of the header title.
+    If this used then remove the header-standin-icon (above).
     <div class="mdl-layout__drawer">
             Menu content goes here. See: https://www.getmdl.io/components/index.html#layout-section
     </div>
     -->
-
-    <!-- If no menu drawer then place an icon  as a standin for the "hamburger" icon. -->
-    <div class="header-standin-icon mdl-layout__drawer-button">
-        <i class="material-icons">lightbulb_outline</i>
-    </div>
 
     <main class="mdl-layout__content">
 
