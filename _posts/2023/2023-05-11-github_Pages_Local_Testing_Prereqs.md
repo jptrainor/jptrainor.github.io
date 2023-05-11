@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Install Jekyll for Github Pages, Ruby Newby version"
+title:  "Install Jekyll for Github Pages"
 date:   2023-05-09 21:08:37 -0400
 categories: github pages jekyll install
 ---
