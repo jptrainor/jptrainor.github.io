@@ -6,9 +6,12 @@ categories: github pages jekyll install
 ---
 
 This describes how to install [Ruby](https://www.ruby-lang.org) and
-[Jekyll](https://jekyllrb.com) on MacOS so that you can get started
-with [GitHub
+[Jekyll](https://jekyllrb.com) on MacOS Ventura so that you can get
+started with [GitHub
 Pages](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll).
+
+It assumes you have Xcode installed, including Xcode command line
+tools.
 
 # Don't use your system ruby.
 
