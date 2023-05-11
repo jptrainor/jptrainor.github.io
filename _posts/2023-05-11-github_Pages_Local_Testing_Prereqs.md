@@ -5,8 +5,6 @@ date:   2023-05-09 21:08:37 -0400
 categories: github pages jekyll install
 ---
 
-<!-- _includes/page__meta.html -->
-
 This describes how to install [Ruby](https://www.ruby-lang.org) and
 [Jekyll](https://jekyllrb.com) on MacOS so that you can get started
 with [GitHub
@@ -61,14 +59,14 @@ Now follow the instructions at [rvm](https://rvm.io) instructions to
 get started with rvm itself:
 
 ```
-$ gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-$ \curl -sSL https://get.rvm.io | bash -s stable
+gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+\curl -sSL https://get.rvm.io | bash -s stable
 ```
 
 When the rvm install finishes it will ask to setup your environment:
 
 ```
-$ source "$HOME/.rvm/scripts/rvm" 
+source "$HOME/.rvm/scripts/rvm" 
 ```
 
 Now you have the rvm command in your path:
@@ -114,7 +112,7 @@ $ which ruby bundle gem
 Finally, you can install jekyll:
 
 ```
-$ gem install jekyll
+gem install jekyll
 ```
 
 And with that, you will have satisfied the GitHub Pages Jekyll
