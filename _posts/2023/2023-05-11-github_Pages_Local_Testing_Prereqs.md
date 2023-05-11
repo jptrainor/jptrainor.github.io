@@ -112,7 +112,7 @@ $ which ruby bundle gem
 ~/.rvm/rubies/ruby-2.7.2/bin/gem
 ```
 
-Finally, you can install jekyll:
+Finally, install jekyll:
 
 ```
 gem install jekyll
