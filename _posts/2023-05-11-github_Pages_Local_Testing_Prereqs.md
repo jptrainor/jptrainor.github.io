@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Install Jekyll for Github Pages"
+title:  "Install Jekyll for Github Pages, Ruby Newby version"
 date:   2023-05-09 21:08:37 -0400
 categories: github pages jekyll install
 ---
@@ -123,4 +123,3 @@ prerequisites.
 Note: there is a long thread on Stackoverflow where people discuss
 their [troubles with rvm and
 openssl](https://stackoverflow.com/questions/15511943/troubles-with-rvm-and-openssl).
-
