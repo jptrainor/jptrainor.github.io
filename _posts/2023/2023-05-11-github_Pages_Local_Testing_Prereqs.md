@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Install Jekyll for Github Pages"
-date:   2023-05-09 21:08:37 -0400
+date:   2023-05-11
 categories: github pages jekyll install
 ---
 
