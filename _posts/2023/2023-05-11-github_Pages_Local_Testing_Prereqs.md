@@ -63,13 +63,13 @@ get started with rvm itself:
 
 ```
 gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-\curl -sSL https://get.rvm.io | bash -s stable
+curl -sSL https://get.rvm.io | bash -s stable
 ```
 
 When the rvm install finishes it will ask to setup your environment:
 
 ```
-source "$HOME/.rvm/scripts/rvm" 
+source "$HOME/.rvm/scripts/rvm"
 ```
 
 Now you have the rvm command in your path:
@@ -100,7 +100,7 @@ rvm pkg install openssl
 Now build ruby as follows:
 
 ```
-PKG_CONFIG_PATH=$HOME/.rvm/usr/lib/pkgconfig rvm install 2.7 --with-openssl-dir=$HOME/.rvm/usr
+PKG_CONFIG_PATH="$HOME/.rvm/usr/lib/pkgconfig" rvm install 2.7 --with-openssl-dir="$HOME/.rvm/usr"
 ```
 
 You should now have local versions of ruby, bundle, and gem:
@@ -121,6 +121,26 @@ gem install jekyll
 And with that, you will have satisfied the GitHub Pages Jekyll
 prerequisites.
 
-Note: there is a long thread on Stackoverflow where people discuss
+# Install script
+
+Here is everything in one script that assumes gpg2 is available.
+
+```
+#! /bin/bash
+set -e
+gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable
+source "$HOME/.rvm/scripts/rvm"
+rvm pkg install openssl
+PKG_CONFIG_PATH="$HOME/.rvm/usr/lib/pkgconfig" rvm install 2.7 --with-openssl-dir="$HOME/.rvm/usr"
+gem install jekyll
+```
+
+# Addendum
+
+Note: There is a long thread on Stackoverflow where people discuss
 their [troubles with rvm and
 openssl](https://stackoverflow.com/questions/15511943/troubles-with-rvm-and-openssl).
+
+Note: The `rvm pkg ...` command is [deprecated](https://rvm.io/packages) at
+the time of this writing.
