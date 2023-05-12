@@ -58,15 +58,16 @@ to get that from [port](https://www.macports.org) or
 $ sudo port install gnupg2
 ```
 
-Now follow the instructions at [rvm](https://rvm.io) instructions to
-get started with rvm itself:
+Now follow the instructions at [rvm](https://rvm.io) to get started
+with rvm itself:
 
 ```
 gpg2 --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io | bash -s stable
 ```
 
-When the rvm install finishes it will ask to setup your environment:
+When the rvm install finishes it will ask you to setup your
+environment:
 
 ```
 source "$HOME/.rvm/scripts/rvm"
@@ -85,13 +86,13 @@ Next use rvm to install ruby into your local environment (i.e. into
 [Githug Pages depends](https://pages.github.com/versions/) on ruby
 version 2.7. It should be as simple to install as ```rvm install
 2.7```. However, if you try that, you may discover that the rvm ruby
-build fails because it has a dependency on openssl version 1.1, and
-you may not have openssl 1.1 installed on your system, or if it is
-installed then the rvm builder doesn't know where.
+build fails because it has a dependency on openssl version 1.0.1, and
+you may not have openssl 1.0.1 available on your system, or if it is
+available then the rvm builder doesn't know where to find it.
 
-Rather than struggling with openssl dependencies and whatever version
-of opensll you happen to have installed elsewhere on your system, use
-rvm to install the correct openssl version in your rvm environment:
+Rather than struggling with openssl dependencies outside your rvm
+environment, use rvm to install the correct openssl version into your
+rvm environment:
 
 ```
 rvm pkg install openssl
