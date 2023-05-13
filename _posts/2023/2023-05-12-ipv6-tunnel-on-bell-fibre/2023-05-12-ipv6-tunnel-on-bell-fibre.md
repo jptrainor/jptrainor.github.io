@@ -33,26 +33,39 @@ a.k.a. the "Gigahub", that Bell's fiber customer have no choice but to
 use.
 
 So how to get the IPV6 tunnel traffic through the Gigahub? It has
-[DMZ](https://en.wikipedia.org/wiki/DMZ_(computing) support, even an
-"Advanced DMZ" mode that claims completely bypasses the router's
-firewall. None of that help. Indeed, there are many reports of it
-being
-[buggy](https://forum.bell.ca/t5/Internet/Advanced-DMZ/m-p/10971), and
-that was my experience. What does work is [PPPoE
-passthrough](https://forum.bell.ca/t5/Internet/Using-PPPoE-and-DMZ-Advanced-DMZ-for-Bridge-Mode-use-of-3rd/m-p/705).
+[DMZ](https://en.wikipedia.org/wiki/DMZ_(computing)) support, even an
+"Advanced DMZ" mode that claims to completely bypass the router's
+firewall. None of that helped. Indeed, it seemed even more
+unreliable. There are many reports of Gigahub DMZ being
+[buggy](https://forum.bell.ca/t5/Internet/Advanced-DMZ/m-p/10971) on
+the Gighub and that was my experience.
 
 # The solution
 
-The solution is a dedicated OpenWrt router that configures a PPPoE
-connection to transit the IPV4 traffic (the only traffic that Bell
-supports), and a Hurricane Electric IPV6 tunnel to support the IPV6
-traffic. Clients of this router all get IPV6 internet access.
+What I found works to to pass IPV6 tunnel traffic on both Bell's
+network, and with the Gigahub router, is [PPPoE
+passthrough](https://forum.bell.ca/t5/Internet/Using-PPPoE-and-DMZ-Advanced-DMZ-for-Bridge-Mode-use-of-3rd/m-p/705).
 
-The PPPoE connection get's a new public IP address. This new public
-address is pingable, and IPV6 Hurricane Electric tunnel traffic passes
-through the Gigahub without problem.
+The solution I settled on was a dedicated OpenWrt router that
+configures a PPPoE connection to transit the IPV4 traffic (the only
+traffic that Bell supports), and a Hurricane Electric IPV6 tunnel,
+also running on the OpenWrt router, to support the IPV6
+traffic. Clients of this router all get both IPV4 and IPV6 internet
+access.
+
+The PPPoE connection gets a new public IP address, different from the
+GigaHub's own IP address. This new public address is pingable, and
+IPV6 Hurricane Electric tunnel traffic passes through the Gigahub
+without problem.
 
 Note, this additional, dedicated, IPV6 router doesn't prevent the rest
 of the users on my home network from routing their normal IPV4 traffic
 directly thorugh the GigaHub.
+
+# OpenWrt router configuration
+
+Starting from a fresh install, with SSH access, run the following
+configuration script on your OpenWrt router:
+
+
 
