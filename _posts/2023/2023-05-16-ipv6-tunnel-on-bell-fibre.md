@@ -53,8 +53,8 @@ that was my experience.
 
 # The solution
 
-What I found does work to to pass IPV6 tunnel traffic on both Bell's
-network, and with through the GigaHub router, is [PPPoE
+What I found does work to pass IPV6 tunnel traffic through the GigaHub
+router, and through Bell's network, is [PPPoE
 passthrough](https://forum.bell.ca/t5/Internet/Using-PPPoE-and-DMZ-Advanced-DMZ-for-Bridge-Mode-use-of-3rd/m-p/705).
 
 The solution I settled on was a dedicated
