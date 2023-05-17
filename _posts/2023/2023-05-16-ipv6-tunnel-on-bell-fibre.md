@@ -104,14 +104,14 @@ create the [Hurricane Electric IPV6 tunnel](https://tunnelbroker.net).
 Get your WAN IP4 address from an external service:
 
 ```
-wget -4qO- api.ipify.org; echo
+$ wget -4qO- api.ipify.org; echo
 123.456.789.123
 ```
 
 Get your WAN IPV4 address from OpenWrt's network status:
 
 ```
-ifstatus wan |  jsonfilter -e '@["ipv4-address"][0].address'
+$ ifstatus wan |  jsonfilter -e '@["ipv4-address"][0].address'
 123.456.789.123
 ```
 
@@ -183,7 +183,7 @@ would expect to see something similar to the following network
 configuration on the client ethernet interface:
 
 ```
-ifconfig en0
+$ ifconfig en0
 en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	options=27<RXCSUM,TXCSUM,VLAN_MTU,TSO4>
 	ether 00:23:32:d4:72:80 
@@ -203,7 +203,7 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 The client should have IPV6 connectivity:
 
 ```
-ping6 ipv6.google.com
+$ ping6 ipv6.google.com
 PING6(56=40+8+8 bytes) 1234:567:8a:9b1:b104:1994:896:aa46 --> 2607:f8b0:400b:803::200e
 16 bytes from 2607:f8b0:400b:803::200e, icmp_seq=1 hlim=120 time=9.889 ms
 ```
@@ -228,7 +228,7 @@ You can also check the router logs to see if the update happened as
 expected:
 
 ```
-logread | grep wan6
+$ logread | grep wan6
 Tue May 16 16:50:47 2023 daemon.notice netifd: Interface 'wan6' is now up
 Tue May 16 16:50:47 2023 daemon.notice netifd: tunnel '6in4-wan6' link is up
 Tue May 16 16:50:49 2023 user.notice 6in4-wan6: update 1/3: nochg 123.456.789.123
