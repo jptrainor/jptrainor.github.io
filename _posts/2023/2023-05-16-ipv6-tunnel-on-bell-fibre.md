@@ -165,7 +165,7 @@ ifup wan6
 
 Check on the router first.
 ```
-ping6 ipv6.google.com
+$ ping6 ipv6.google.com
 PING ipv6.google.com (2607:f8b0:400b:803::200e): 56 data bytes
 64 bytes from 2607:f8b0:400b:803::200e: seq=0 ttl=121 time=11.088 ms
 ```
