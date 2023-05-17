@@ -103,7 +103,7 @@ create the [Hurricane Electric IPV6 tunnel](https://tunnelbroker.net).
 
 Get your WAN IP4 address from an external service:
 
-````
+```
 wget -4qO- api.ipify.org; echo
 123.456.789.123
 ```
@@ -113,7 +113,7 @@ Get your WAN IPV4 address from OpenWrt's network status:
 ```
 ifstatus wan |  jsonfilter -e '@["ipv4-address"][0].address'
 123.456.789.123
-````
+```
 
 The two should match. If they don't, or if one doesn't work, then
 something is wrong.
@@ -130,19 +130,21 @@ reboot
 
 # Create Hurricane Electric IPV6 tunnel.
 
-Visit [tunnelbroker.net](https://tunnelbroker.net) and create a new IPV5
-tunnel. You'll need your routers public IPV4 address (the WAN address
-from above) to setup the tunnel.
+Visit [tunnelbroker.net](https://tunnelbroker.net) and create a new
+IPV6 tunnel. You'll need your router's public IPV4 address (the WAN
+address from above) to setup the tunnel.
 
-After it's setup, you'll need the need information below to configure
-the OpenWrt IPV6 wan interface.
+After it's setup, you'll need the need the Hurricane Electric tunnel
+information below to configure the OpenWrt IPV6 wan interface.
 
 ![Hurricane Electric UI tunnel details](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Tunnel.png)
 ![Hurrican Electric UI tunnel advanced](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Advanced.png)
 
 # Configure the wan6 (IPV6) network interface
 
-Finally, configure the IPV6 wan interface.
+Finally, configure the IPV6 wan interface. Substitute the "henet-...."
+place holders using the matching values from the Hurricane Electric
+"Tunnel Details" page.
 
 ```
 uci -q delete network.wan6
@@ -159,44 +161,9 @@ uci commit network
 ifup wan6
 ```
 
-# WAN IP4 Address Update
-
-If the wan's IP4 public address changes then the Hurricane Electric
-tunnel must updated. The 6in4 tunnel interface should take care of
-this automatically. If it doesn't update correctly the IPV6 wan
-interface will lose connectivity.
-
-Debug this by logging into the [tunnelbroker.net](https://tunnelbroker.net)
-and checking the "Client IPV4 Address" (see the Tunnel Details image
-above). And compare that the current WAN interface IP4 address.
-
-You can also check the router logs to see if the updated happened as
-expected:
-
-```
-logread | grep wan6
-Tue May 16 16:50:47 2023 daemon.notice netifd: Interface 'wan6' is now up
-Tue May 16 16:50:47 2023 daemon.notice netifd: tunnel '6in4-wan6' link is up
-Tue May 16 16:50:49 2023 user.notice 6in4-wan6: update 1/3: nochg 123.456.789.123
-Tue May 16 16:50:49 2023 user.notice 6in4-wan6: updated
-```
-
-If you need to force the tunnelbroker.net Client IPV4 Address update
-then try restarting the wan interface (not wan6), or execute an http
-get on the "ExampleUpdate URL" (seen in the Tunnel Details image
-above). You can execute this on the router command line as follows:
-
-'''
-$ wget -4qO- $ https://henet-username:henet-update-key@ipv4.tunnelbroker.net/nic/update?hostname=henet-tunnelid
-nochg 123.456.789.123
-'''
-
-If the reply is "nochg ..." then the Client IPV4 Address was up to
-date.
-
 # Check IPV6 Connectivity
 
-Check on router first.
+Check on the router first.
 ```
 ping6 ipv6.google.com
 PING ipv6.google.com (2607:f8b0:400b:803::200e): 56 data bytes
@@ -204,14 +171,16 @@ PING ipv6.google.com (2607:f8b0:400b:803::200e): 56 data bytes
 ```
 
 The router should be serving correctly configured IPV6 configuration
-to DHCP clients. In the example below is the enthernet interface of a
-Mac that is connected to the router's LAN interface. Expect to see
-multiple inet6 addresses. At least one of them should begin with the
-`uci add_list network.wan6.ip6prefix="henet-routed-prefix-64` IPV6
-address prefix configured on the router's wan6 interface.
+to DHCP LAN clients. In the example below is the enthernet interface
+configuration of a Mac that is connected to the router's LAN
+interface. Expect to see multiple inet6 addresses. At least one of
+them should begin with the `uci add_list
+network.wan6.ip6prefix="henet-routed-prefix-64` IPV6 address prefix
+configured on the router's wan6 interface.
 
-If this value was `1234:567:8a:9b1/64` then you would expect to
-something similar to the follow network configuration on the client:
+If the IPV6 router/64 prefix value is `1234:567:8a:9b1/64` then you
+would expect to see something similar to the following network
+configuration on the client ethernet interface:
 
 ```
 ifconfig en0
@@ -240,5 +209,41 @@ PING6(56=40+8+8 bytes) 1234:567:8a:9b1:b104:1994:896:aa46 --> 2607:f8b0:400b:803
 ```
 
 If this much works, then every client that connects to the router
-should have IPV6 internet access. Including wireless clients, if you
-enable wifi on the router.
+should, in theory, have IPV6 internet access. Including wireless
+clients, if you enable wifi on the router.
+
+# WAN IP4 Address Update
+
+If the WAN's IP4 public address changes then the Hurricane Electric
+tunnel must updated. The 6in4 tunnel interface should take care of
+this automatically. If it doesn't update correctly the IPV6 wan
+interface you will lose connectivity.
+
+Debug this by logging into
+[tunnelbroker.net](https://tunnelbroker.net) and checking the "Client
+IPV4 Address" (see the Tunnel Details image above). Compare it to the
+router's WAN interface IP4 address. They should be identical.
+
+You can also check the router logs to see if the update happened as
+expected:
+
+```
+logread | grep wan6
+Tue May 16 16:50:47 2023 daemon.notice netifd: Interface 'wan6' is now up
+Tue May 16 16:50:47 2023 daemon.notice netifd: tunnel '6in4-wan6' link is up
+Tue May 16 16:50:49 2023 user.notice 6in4-wan6: update 1/3: nochg 123.456.789.123
+Tue May 16 16:50:49 2023 user.notice 6in4-wan6: updated
+```
+
+If you need to force a tunnelbroker.net Client IPV4 Address update
+then try restarting the wan interface (not wan6), or execute an http
+get on the "ExampleUpdate URL" (seen in the Tunnel Details image
+above). You can execute this on the router command line as follows:
+
+'''
+$ wget -4qO- $ https://henet-username:henet-update-key@ipv4.tunnelbroker.net/nic/update?hostname=henet-tunnelid
+nochg 123.456.789.123
+'''
+
+If the reply is "nochg ..." then the Client IPV4 Address was up to
+date.
