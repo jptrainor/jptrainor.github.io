@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "OpenWrt IPV6 Tunnel Configuration"
+title:  "OpenWrt IPV6 Tunnel Configuration (for Bell Fibre Internet)"
 date:   2023-05-16
 categories: IPV6
 ---
