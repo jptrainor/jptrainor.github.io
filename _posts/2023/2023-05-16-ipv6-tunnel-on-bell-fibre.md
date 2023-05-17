@@ -240,10 +240,10 @@ then try restarting the wan interface (not wan6), or execute an http
 get on the "ExampleUpdate URL" (seen in the Tunnel Details image
 above). You can execute this on the router command line as follows:
 
-'''
+```
 $ wget -4qO- $ https://henet-username:henet-update-key@ipv4.tunnelbroker.net/nic/update?hostname=henet-tunnelid
 nochg 123.456.789.123
-'''
+```
 
 If the reply is "nochg ..." then the Client IPV4 Address was up to
 date.
