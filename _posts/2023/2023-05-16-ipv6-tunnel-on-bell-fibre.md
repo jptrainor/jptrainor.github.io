@@ -130,7 +130,7 @@ You need the same username and password that your Bell GigaHub uses to
 connect to Bell's network. You can find the username on your GigaHub's
 web interface, but not the password. If you don't have the password
 then you'll have to contact Bell or create a new one at
-(mybell.bell.ca)[https://mybell.bell.ca/].
+[mybell.bell.ca](https://mybell.bell.ca/).
 
 ```
 uci set network.wan.proto=pppoe
