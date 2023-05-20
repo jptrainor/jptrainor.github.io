@@ -40,8 +40,8 @@ it should work. And, in theory at least, if their network isn't
 blocking anything then what must be blocking the tunnel traffic is the
 Bell [Home Hub 4000
 router](https://support.bell.ca/internet/products/home-hub-4000-modem),
-a.k.a. the "GigaHub", that Bell's fiber customer have no choice but to
-use.
+a.k.a. the "GigaHub", that Bell's fiber customers have no choice but
+to use.
 
 So how to get the IPV6 tunnel traffic through the Gigahub? It has
 [DMZ](https://en.wikipedia.org/wiki/DMZ_(computing)) support, even an
@@ -54,7 +54,7 @@ that was my experience.
 # The solution
 
 What I found does work to pass IPV6 tunnel traffic through the GigaHub
-router, and through Bell's network, is [PPPoE
+router is [PPPoE
 passthrough](https://forum.bell.ca/t5/Internet/Using-PPPoE-and-DMZ-Advanced-DMZ-for-Bridge-Mode-use-of-3rd/m-p/705).
 
 The solution I settled on was a dedicated
@@ -85,8 +85,8 @@ the latest version OpenWrt on that router. I used OpenWrt version
 release](https://openwrt.org/#current_stable_seriesopenwrt_2203) at
 the time.
 
-Any old router will work as long it's supported by the latest version
-of OpenWrt. I happened to use an old [NetGear
+Any old router will work as long as it's supported by the latest
+version of OpenWrt. I happened to use an old [NetGear
 WNDR3700](https://openwrt.org/toh/netgear/wndr3700) that I had lying
 around unused. Old [used
 routers](https://www.kijiji.ca/b-computer-accessories/canada/router/k0c128l0?sort=priceAsc)
@@ -220,7 +220,7 @@ PING ipv6.google.com (2607:f8b0:400b:803::200e): 56 data bytes
 ```
 
 The router should be serving correctly configured IPV6 configuration
-to DHCP LAN clients. The example below is the enthernet interface
+to DHCPv6 LAN clients. The example below is the enthernet interface
 configuration of a Mac that is connected to the router's LAN
 interface.
 
@@ -246,7 +246,7 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	media: autoselect (1000baseT <full-duplex,flow-control>)
 	status: active
 
-* - this is the IPV6 tunnel prefix provided by the router via DHCP
+* - this is the IPV6 tunnel prefix provided by the router via DHCPv6
 ```
 
 The client should have IPV6 connectivity:
@@ -277,7 +277,7 @@ it does update correctly.
 Debug this by logging into
 [tunnelbroker.net](https://tunnelbroker.net) and checking the "Client
 IPV4 Address" (see the Tunnel Details image above). Compare it to the
-router's WAN interface IP4 address. They should be identical.
+OpenWrt router's WAN interface IP4 address. They should be identical.
 
 You can also check the router logs to see if the update happened as
 expected:
