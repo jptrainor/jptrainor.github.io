@@ -226,8 +226,8 @@ interface.
 
 Expect to see multiple inet6 addresses. At least one of them should
 begin with the "henet-routed-prefix-64" value that you provided
-above. For example, If the IPV6 router/64 prefix value is
-`1234:567:8a:9b1/64` then you would expect to see something similar to
+above. For example, If the IPV6 routed/64 prefix value is
+`2012:345:67:891/64` then you would expect to see something similar to
 the following network configuration on the client ethernet interface:
 
 ```
@@ -237,11 +237,11 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	ether 00:23:32:d4:72:80 
 	inet6 fe80::223:32ff:fed4:7280%en0 prefixlen 64 scopeid 0x4 
 	inet 192.168.1.111 netmask 0xffffff00 broadcast 192.168.1.255
-*	inet6 1234:567:8a:9b1:223:32ff:fed4:7280 prefixlen 64 autoconf 
-*	inet6 1234:567:8a:9b1:b104:1994:896:aa46 prefixlen 64 autoconf temporary 
+*	inet6 2012:345:67:891:223:32ff:fed4:7280 prefixlen 64 autoconf 
+*	inet6 2012:345:67:891/64:b104:1994:896:aa46 prefixlen 64 autoconf temporary 
 	inet6 fd65:972f:1bf2::223:32ff:fed4:7280 prefixlen 64 autoconf 
 	inet6 fd65:972f:1bf2::19d6:5448:c14b:e14 prefixlen 64 autoconf temporary 
-*	inet6 1234:567:8a:9b1::fdc prefixlen 64 dynamic 
+*	inet6 2012:345:67:891/64::fdc prefixlen 64 dynamic 
 	nd6 options=1<PERFORMNUD>
 	media: autoselect (1000baseT <full-duplex,flow-control>)
 	status: active
