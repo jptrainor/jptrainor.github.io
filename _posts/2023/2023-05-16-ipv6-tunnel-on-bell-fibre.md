@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "OpenWrt IPV6 Tunnel Configuration (for Bell Fibre Internet)"
+title:  "OpenWrt IPV6 Tunnel Configuration (for Bell Fiber Internet)"
 date:   2023-05-16
 categories: IPV6
 ---
 
 The is an account of my experience getting an IPV6 tunnel working over
-my [Bell Canada fibre residential internet
+my [Bell Canada fiber residential internet
 service](https://www.bell.ca/Bell_Internet). It was a headache, so I
-thought I would document it. If you have Bell fibre residential
+thought I would document it. If you have Bell fiber residential
 internet service, and you have Bell's mandatory "GigaHub" router, and
 you want IPV6 connectivity, then this is an exact recipe. However it's
 mostly generic, and is still applicable if you have a different ISP.
@@ -40,7 +40,7 @@ it should work. And, in theory at least, if their network isn't
 blocking anything then what must be blocking the tunnel traffic is the
 Bell [Home Hub 4000
 router](https://support.bell.ca/internet/products/home-hub-4000-modem),
-a.k.a. the "GigaHub", that Bell provides to their fibre customers.
+a.k.a. the "GigaHub", that Bell provides to their fiber customers.
 
 So how to get the IPV6 tunnel traffic through the Gigahub? It has
 [DMZ](https://en.wikipedia.org/wiki/DMZ_(computing)) support, even an
@@ -183,8 +183,8 @@ address from above) to setup the new tunnel.
 After it's setup, you'll need the need the Hurricane Electric tunnel
 information below to configure the OpenWrt IPV6 wan6 interface.
 
-![Hurricane Electric UI tunnel details](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Tunnel.png)
-![Hurrican Electric UI tunnel advanced](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Advanced.png)
+![Hurricane Electric UI tunnel details](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fiber/TunnelDetail-IPv6Tunnel.png)
+![Hurrican Electric UI tunnel advanced](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fiber/TunnelDetail-IPv6Advanced.png)
 
 # Configure the wan6 (IPV6) network interface
 
