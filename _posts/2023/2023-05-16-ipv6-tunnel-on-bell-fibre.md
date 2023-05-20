@@ -40,8 +40,7 @@ it should work. And, in theory at least, if their network isn't
 blocking anything then what must be blocking the tunnel traffic is the
 Bell [Home Hub 4000
 router](https://support.bell.ca/internet/products/home-hub-4000-modem),
-a.k.a. the "GigaHub", that Bell's fiber customers have no choice but
-to use.
+a.k.a. the "GigaHub", that Bell provides to their fibre customers.
 
 So how to get the IPV6 tunnel traffic through the Gigahub? It has
 [DMZ](https://en.wikipedia.org/wiki/DMZ_(computing)) support, even an
