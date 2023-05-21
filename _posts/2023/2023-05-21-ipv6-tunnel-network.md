@@ -60,14 +60,14 @@ IPv6 support. Clients on this LAN only have IPv4 internet access.
 
 # IPv6 support on sub-LAN.
 
-The IPv6 tunnel router has it's own, separate, PPPoE internet
-connection. It also has it's own sub-network that I assign IPv4
-172.168.1.0/24 to distinguish it from the prmary LAN.
+The IPv6 tunnel router has a PPPoE WAN connection with a public IPv4
+address that is different than the GigaHub WAN's IPv4 address. It has a LAN sub-network that I assign IPv4 172.16.1.0/24 to distinguish
+it from the prmary LAN.
 
-This router runs the Hurricane Electric IPv6 tunnel. It runs it's own
-DHCP and DHCPv6 service for clients of its LAN. This is all part of
-the normal OpenWrt router configuration. Its clients get an IPv4
-172.16.1.0/24 network address and the also get an IPv6 address on the
-IPv6 tunnels's IPv6 prefix. Clients on this sub-LAN all have IPv6
-internet access via the router's IPv6 tunnel.
+This router runs the Hurricane Electric IPv6 tunnel, and it runs its
+own DHCP and DHCPv6 service for clients of its LAN (normal OpenWrt
+router configuration). LAN clients get an IPv4 172.16.1.0/24 address
+and an IPv6 address derived from the tunnel's IPv6 prefix. All clients
+of the tunnel router's LAN have both IPV4 and IPV6 access via the 6in4
+tunnel.
 
