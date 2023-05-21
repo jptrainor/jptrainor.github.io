@@ -183,8 +183,8 @@ address from above) to setup the new tunnel.
 After it's setup, you'll need the need the Hurricane Electric tunnel
 information below to configure the OpenWrt IPV6 wan6 interface.
 
-![Hurricane Electric UI tunnel details](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fiber/TunnelDetail-IPv6Tunnel.png)
-![Hurrican Electric UI tunnel advanced](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fiber/TunnelDetail-IPv6Advanced.png)
+![Hurricane Electric UI tunnel details](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Tunnel.png)
+![Hurrican Electric UI tunnel advanced](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Advanced.png)
 
 # Configure the wan6 (IPV6) network interface
 
