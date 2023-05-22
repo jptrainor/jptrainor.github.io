@@ -25,7 +25,7 @@ service](https://tunnelbroker.net). Should be simple, right?
 Should be simple, but all my initial attempts failed and left me
 frustrated. The tunnel would send data but no data was ever received,
 and it behaved the same regardless of what platform I tested
-with. Even pinging my router's public IP4 address proved unreliable,
+with. Even pinging my router's public IPv4 address proved unreliable,
 and I needed that to work reliably to setup the tunnel. Others
 [reported](https://forum.bell.ca/t5/Internet/Is-ipv6-tunneling-possible-with-Bell/m-p/12415)
 similar problems, and have been similarly
@@ -142,7 +142,7 @@ ifup wan
 Wait a few seconds for the wan interface to come up and then verify
 that you have an internet connection.
 
-Get your WAN IP4 address from an external service:
+Get your WAN IPv4 address from an external service:
 
 ```
 $ wget -4qO- api.ipify.org; echo
@@ -159,7 +159,7 @@ $ ifstatus wan |  jsonfilter -e '@["ipv4-address"][0].address'
 The two should match. If they don't, or if one doesn't work, then
 something is wrong.
 
-You'll need this public IP4 address later to create the [Hurricane
+You'll need this public IPv4 address later to create the [Hurricane
 Electric IPv6 tunnel](https://tunnelbroker.net).
 
 # Install the tunnel software
@@ -260,9 +260,9 @@ If this much works, then every client that connects to the router
 should, in theory, have IPv6 internet access. Including wireless
 clients, if you enable wifi on the router.
 
-# WAN IP4 Address Update
+# WAN IPv4 Address Update
 
-If the WAN's IP4 public address changes (which it will regularly on
+If the WAN's IPv4 public address changes (which it will regularly on
 Bell's network) then the Hurricane Electric tunnel must be
 updated. The OpenWrt 6in4 tunnel interface should take care of this
 automatically. If it doesn't succesfully update your IPv4 endpoint
@@ -276,7 +276,7 @@ it does update correctly.
 Debug this by logging into
 [tunnelbroker.net](https://tunnelbroker.net) and checking the "Client
 IPv4 Address" (see the Tunnel Details image above). Compare it to the
-OpenWrt router's WAN interface IP4 address. They should be identical.
+OpenWrt router's WAN interface IPv4 address. They should be identical.
 
 You can also check the router logs to see if the update happened as
 expected:
