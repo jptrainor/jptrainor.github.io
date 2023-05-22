@@ -18,21 +18,21 @@ There are three important constraints that determine how and why I did this the 
 [words](https://tunnelbroker.net): "... oriented towards developers
 and experimenters that want a stable tunnel platform." And that is
 what I'm using it for - development. I don't use full time. I connect
-to it ass needed when I want specifically want to test or access
-something that requires IPv6.
+to it as needed when I specifically want to test something that
+requires IPv6.
 
-2. My internet service is very fast 1.5 Gbps fiber. It don't want
-routine network traffic transitting the IPv6 tunnel needlessly because
-it just get in the way and slow down everything for no advantage. It
-should be totally out of the loop for the rest of the users of my home
-network.
+2. My internet service is very fast 1.5 Gbps fiber. I don't want, or
+need, routine network traffic transitting the IPv6 tunnel
+needlessly. It would just get in the way and slow down everything for
+no advantage. It should be totally out of the loop for the rest of the
+users of my home network, and for most of my regular work.
 
 3. I have no interest in getting a new (expensive) primary router to
 take over all the routing on my network. Most of the traffic has to be
 routed normally by the [Bell
 GigaHub](https://support.bell.ca/internet/products/home-hub-4000-modem). The
-IPv6 doesn't have to be fast to meet my needs, it just has to be easy
-to use and reliable.
+IPv6 router doesn't have to be fast to meet my needs, it just has to
+be easy to use and reliable.
 
 With that in mind, here, unsurprisingly, is the network topology:
 
@@ -48,12 +48,12 @@ GigaHub.
 For DHCP, I already had dedicated DHCP / DNS server running on the
 network. It is a modest DHCP server (but nonetheless much more capable
 that that provided by the GigaHub). It's nothing more than OpenWRT
-running on an old router and configured to to only DHCP. It provides
-routing information to clients that configures the GitHub as the
-default route (just as the GitHub itself would do if it was acting as
-the DHCP server). This is optional, but you'll see later that is
-useful for configuring routing on clients of the 192.1681.0/24
-network.
+running on an old router and configured to only provide only DHCP
+services. It provides routing information to clients and configures
+the Bell GigaHub as the default route (just as the GitHub itself would
+do if it was acting as the DHCP server). This is optional, but you'll
+see later that is useful for configuring routing on clients of the
+192.1681.0/24 network.
 
 Note that this DHCP server only serves clients on the IPV4-only
 192.168.1.0/24 local area network. It has no role to play in providing
@@ -70,19 +70,19 @@ This router runs the Hurricane Electric IPv6 tunnel, and it runs its
 own DHCP and DHCPv6 service for clients of its LAN (normal OpenWrt
 router configuration). LAN clients get an IPv4 172.16.1.0/24 address
 and an IPv6 address derived from the tunnel's IPv6 prefix. All clients
-of the tunnel router's LAN have both IPV4 and IPV6 access via the 6in4
-tunnel and can access the IPv6 internet via the 6in4 tunnel.
+of the tunnel router's LAN have IPV4 internet access via the PPPoE
+link and IPV6 internet access via the 6in4 tunnel.
 
 # Routing across the LAN's
 
 The weakness of this approach is that the computers on each LAN are
-totally isolated. By default there are not routes between
+totally isolated. By default there are not routes between the
 192.168.1.0/24 LAN and the 172.16.1.0/24 LAN.
 
 This can be remedied as follows:
 
 1. Add an additional network interface on the tunnel router's WAN
-ethernet port that is configured with a static 192.168.1.0/24
+ethernet device that is configured with a static 192.168.1.0/24
 address.
 
 2. Add a route on the tunnel router for 192.168.1.0/24 destinations
@@ -152,16 +152,15 @@ appear as follows in LuCI:
 
 # Primary LAN routing
 
-The final detail is to add routing on the 192.168.1.0/24 network to
-the 172.16.1.0/24 for traffic orriginating on the 192.168.1.0/24
-network.
+The final detail is to add routing for 172.16.1.0/24 traffic
+originating on the 192.168.1.0/24 LAN.
 
 The GigaHub is the default router on my primary LAN, but it has no
-ability to add additional routes unfortuatnely. That leaves
+ability to add additional routes unfortunately. That leaves
 configuring routes on each individual computer on the network as the
 alternative. Fortunately that's easy to accomplish with the OpenWrt
 [DHCP](https://openwrt.org/docs/guide-user/base-system/dhcp) server
-that I use on my primary LAN.  Configuration [option
+that I use on my primary LAN.  DHCP configuration [option
 121](https://datatracker.ietf.org/doc/html/rfc3442) can be used to add
 a static route.
 
