@@ -89,8 +89,8 @@ version of OpenWrt. I happened to use an old [NetGear
 WNDR3700](https://openwrt.org/toh/netgear/wndr3700) that I had lying
 around unused. Old [used
 routers](https://www.kijiji.ca/b-computer-accessories/canada/router/k0c128l0?sort=priceAsc)
-are really cheap if you need one. Just be sure to check its OpenWrt
-support. Try to avoid one that requires a [serial
+are really cheap if you need one. Just be sure to check that it's
+supported by OpenWrt. Try to avoid one that requires a [serial
 console](https://openwrt.org/docs/techref/hardware/port.serial) to
 perform the install if you don't have much experience with such
 things, and wish to avoid added frustration.
