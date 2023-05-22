@@ -292,14 +292,14 @@ there are no 6in4-wan6 log messages then the log messages from the
 last update may have been lost do to the limited size of the log file
 and you should consider the update status to be unknown.
 
-If you need to force a tunnelbroker.net Client IPv4 Address update
-then try restarting the IPv4 wan interface ("wan", not "wan6"), or
-execute an http get on the "ExampleUpdate URL" seen in the Tunnel
-Details image above. You can execute this on the router command line
-as follows:
+If you need to force a [tunnelbroker.net](https://tunnelbroker.net)
+Client IPv4 Address update then try restarting the IPv4 wan interface
+("wan", not "wan6"), or execute an http get on the "ExampleUpdate URL"
+seen in the Tunnel Details image above. You can execute this on the
+router command line as follows:
 
 ```
-$ wget -4qO- $ https://henet-username:henet-update-key@ipv4.tunnelbroker.net/nic/update?hostname=henet-tunnelid
+$ wget -4qO- https://henet-username:henet-update-key@ipv4.tunnelbroker.net/nic/update?hostname=henet-tunnelid
 nochg 123.456.789.123
 ```
 
