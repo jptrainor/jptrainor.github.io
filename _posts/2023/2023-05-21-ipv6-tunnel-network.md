@@ -7,9 +7,10 @@ categories: IPV6
 
 This is a followup to my post about configuring a [Hurricane Electric
 IPv6 tunnel](https://tunnelbroker.net/) On an [OpenWrt IPv6
-Tunnel](./ipv6-tunnel-on-bell-fibre.html) to work around lack of IPv6
-support by my Bell Fiber internet service. It describes how I
-integrated this tunnel router into my local home network.
+Tunnel](/ipv6/2023/05/16/ipv6-tunnel-on-bell-fibre.html) to work
+around lack of IPv6 support by my Bell Fiber internet service. It
+describes how I integrated this tunnel router into my local home
+network.
 
 There are three important constraints that determine how and why I did this the way I did it:
 
