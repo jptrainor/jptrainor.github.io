@@ -306,3 +306,8 @@ nochg 123.456.789.123
 If the reply is "nochg ..." then the tunnel's Client IPV4 Address was
 up to date. If it wasn't up to date, and was updated, then the wget
 reply will reflect that.
+
+# Addendum
+
+Read my [follow up post](/ipv6/2023/05/21/ipv6-tunnel-network.html)
+regarding how I integrated this into my home network.
