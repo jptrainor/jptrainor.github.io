@@ -54,7 +54,7 @@ capable that that provided by the GigaHub). It's nothing more than
 OpenWrt running on an old router and configured to provide only DHCP
 services. It provides routing information to clients using DHCP
 options and configures the Bell GigaHub as the default route (just as
-the GitHub itself would do if it was acting as the DHCP server). This
+the GigaHub itself would do if it was acting as the DHCP server). This
 is optional, but you'll see later that it is part of the routing
 solution to access the 172.16.1.0/24 sub-network
 
