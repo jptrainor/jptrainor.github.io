@@ -61,13 +61,131 @@ IPv6 support. Clients on this LAN only have IPv4 internet access.
 # IPv6 support on sub-LAN.
 
 The IPv6 tunnel router has a PPPoE WAN connection with a public IPv4
-address that is different than the GigaHub WAN's IPv4 address. It has a LAN sub-network that I assign IPv4 172.16.1.0/24 to distinguish
-it from the prmary LAN.
+address that is different than the GigaHub WAN's IPv4 address. It has
+a LAN sub-network that I assign IPv4 172.16.1.0/24 to distinguish it
+from the prmary LAN.
 
 This router runs the Hurricane Electric IPv6 tunnel, and it runs its
 own DHCP and DHCPv6 service for clients of its LAN (normal OpenWrt
 router configuration). LAN clients get an IPv4 172.16.1.0/24 address
 and an IPv6 address derived from the tunnel's IPv6 prefix. All clients
 of the tunnel router's LAN have both IPV4 and IPV6 access via the 6in4
-tunnel.
+tunnel and can access the IPv6 internet via the 6in4 tunnel.
 
+# Routing across the LAN's
+
+The weakness of this approach is that the computers on each LAN are
+totally isolated. By default there are not routes between
+192.168.1.0/24 LAN and the 172.16.1.0/24 LAN.
+
+This can be remedied as follows:
+
+1. Add an additional network interface on the tunnel router's WAN
+ethernet port that is configured with a static 192.168.1.0/24
+address.
+
+2. Add a route on the tunnel router for 192.168.1.0/24 destinations
+originating on the 172.16.1.0/24 LAN.
+
+3. Add firewall configuration on the tunnel router to permit traffic
+to pass between the 192.168.1.0/24 and 172.16.1.0/24 LAN's.
+
+4. Add routing on the 192.168.1.0/24 network for 172.16.1.0/24
+destinations originating on the 192.168.1.0/24 LAN.
+
+# Tunnel router configuration
+
+Here is the tunnel router configuration that accomplish items 1, 2,
+and 3 above:
+
+```
+# Setup the sub LAN's 172.16.1.0/24 address range.
+uci set network.lan.proto='static'
+uci set network.lan.ipaddr='172.16.1.1'
+uci set network.lan.netmask='255.255.255.0'
+uci commit
+
+# Add a new interface on the WAN's ethernet port, and configure a
+# 192.168.1.0/24 static address.
+uci set network.wlan=interface
+uci set network.wlan.proto='static'
+uci set network.wlan.device='eth1'
+uci set network.wlan.ipaddr='192.168.1.5'
+uci set network.wlan.netmask='255.255.255.0'
+uci set network.wlan.defaultroute='0'
+uci commit
+
+# Add a route to the 192.168.1.0/24 network.
+uci add network route
+uci set network.@route[-1].interface='wlan'
+uci set network.@route[-1].target='192.168.1.0/24'
+uci commit
+
+# Update the firewall to pass traffic between the 172.16.1.0/24 (lan)
+  and 192.168.1.0/24 (wlan) zones.
+uci add firewall zone
+uci set firewall.@zone[-1].name='wlan'
+uci set firewall.@zone[-1].input='ACCEPT'
+uci set firewall.@zone[-1].output='ACCEPT'
+uci set firewall.@zone[-1].forward='REJECT'
+uci set firewall.@zone[-1].network='wlan'
+
+uci add firewall forwarding
+uci set firewall.@forwarding[-1].src='lan'
+uci set firewall.@forwarding[-1].dest='wlan'
+
+uci add firewall forwarding
+uci set firewall.@forwarding[-1].src='wlan'
+uci set firewall.@forwarding[-1].dest='lan'
+uci commit
+
+/etc/init.d/network restart
+```
+
+When that's done, the network interface and firewall configuration
+appear as follows in LuCI:
+
+![tunnel router network interfaces](/assets/images/2023/2023-05-21-ipv6-tunnel-network/TunnelNetworkInterfaces.png)
+
+![tunnel router firewall config](/assets/images/2023/2023-05-21-ipv6-tunnel-network/TunnelFirewallConfig.png)
+
+# Primary LAN routing
+
+The final detail is to add routing on the 192.168.1.0/24 network to
+the 172.16.1.0/24 for traffic orriginating on the 192.168.1.0/24
+network.
+
+The GigaHub is the default router on my primary LAN, but it has no
+ability to add additional routes unfortuatnely. That leaves
+configuring routes on each individual computer on the network as the
+alternative. Fortunately that's easy to accomplish with the OpenWrt
+[DHCP](https://openwrt.org/docs/guide-user/base-system/dhcp) server
+that I use on my primary LAN.  Configuration [option
+121](https://datatracker.ietf.org/doc/html/rfc3442) can be used to add
+a static route.
+
+The DHCP option 121 routing configuration entry looks like this:
+
+![tunnel router firewall config](/assets/images/2023/2023-05-21-ipv6-tunnel-network/DHCPOption121StaticRoute.png)
+
+Here is what the final DHCP config looks like on a Mac on the LAN:
+
+```
+$ ipconfig getpacket en0
+.
+.
+yiaddr = 192.168.1.21
+.
+.
+classless_static_route (classless_route): {172.16.1.0/24, 192.168.1.5} #OPT 121
+router (ip_mult): {192.168.1.1}
+end (none): 
+```
+
+And here's the active route that was configured automatically via DHCP
+option 121:
+
+````
+$ netstat -rn | grep 172
+172.16.1/24        192.168.1.5        UGSc              en0
+````
