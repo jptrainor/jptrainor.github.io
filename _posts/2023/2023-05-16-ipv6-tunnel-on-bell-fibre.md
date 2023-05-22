@@ -1,23 +1,23 @@
 ---
 layout: post
-title:  "OpenWrt IPV6 Tunnel Configuration (for Bell Fiber Internet)"
+title:  "OpenWrt IPv6 Tunnel Configuration (for Bell Fiber Internet)"
 date:   2023-05-16
-categories: IPV6
+categories: IPv6
 ---
 
-The is an account of my experience getting an IPV6 tunnel working over
+The is an account of my experience getting an IPv6 tunnel working over
 my [Bell Canada fiber residential internet
 service](https://www.bell.ca/Bell_Internet). It was a headache, so I
 thought I would document it. If you have Bell fiber residential
 internet service, and you have Bell's mandatory "GigaHub" router, and
-you want IPV6 connectivity, then this is an exact recipe. However it's
+you want IPv6 connectivity, then this is an exact recipe. However it's
 mostly generic, and is still applicable if you have a different ISP.
 
 [TLDR: jump to the solution](#the-solution)
 
 Bell Canada's residential fiber internet service doesn't support
-IPV6. An IPV6-over-IPV4 tunnel is a solution, and [Hurricane
-Electric](https://www.he.net/) provide a free [IPV6 over IPV4 tunnel
+IPv6. An IPv6-over-IPv4 tunnel is a solution, and [Hurricane
+Electric](https://www.he.net/) provide a free [IPv6 over IPv4 tunnel
 service](https://tunnelbroker.net). Should be simple, right?
 
 # Not so simple
@@ -32,7 +32,7 @@ similar problems, and have been similarly
 [frustrated](https://forum.bell.ca/t5/Internet/Gigahub-and-IPv6/m-p/10489)
 by this.
 
-IPV6-over-IPV4 is implemented using [IP protocol
+IPv6-over-IPv4 is implemented using [IP protocol
 41](https://simple.wikipedia.org/wiki/Protocol_41). A call to Bell's
 tech support confirmed that they don't block IP protocol 41 on their
 network, indeed they said they don't block anything. In theory, then,
@@ -42,7 +42,7 @@ Bell [Home Hub 4000
 router](https://support.bell.ca/internet/products/home-hub-4000-modem),
 a.k.a. the "GigaHub", that Bell provides to their fiber customers.
 
-So how to get the IPV6 tunnel traffic through the Gigahub? It has
+So how to get the IPv6 tunnel traffic through the Gigahub? It has
 [DMZ](https://en.wikipedia.org/wiki/DMZ_(computing)) support, even an
 "Advanced DMZ" mode that claims to completely bypass the router's
 firewall. None of that helped. Indeed, it seemed even more unreliable
@@ -52,25 +52,25 @@ that was my experience.
 
 # The solution
 
-What I found does work to pass IPV6 tunnel traffic through the GigaHub
+What I found does work to pass IPv6 tunnel traffic through the GigaHub
 router is [PPPoE
 passthrough](https://forum.bell.ca/t5/Internet/Using-PPPoE-and-DMZ-Advanced-DMZ-for-Bridge-Mode-use-of-3rd/m-p/705).
 
 The solution I settled on was a dedicated
 [OpenWrt](https://openwrt.org/) router that configures a PPPoE
-connection to transit the IPV4 traffic (the only traffic that Bell
-supports), and a Hurricane Electric IPV6 tunnel, also running on the
-OpenWrt router, to support the IPV6 traffic. Clients of this router
-get both IPV4 and IPV6 internet access.
+connection to transit the IPv4 traffic (the only traffic that Bell
+supports), and a Hurricane Electric IPv6 tunnel, also running on the
+OpenWrt router, to support the IPv6 traffic. Clients of this router
+get both IPv4 and IPv6 internet access.
 
 The PPPoE connection gets a new public IP address, different from the
 GigaHub's own public IP address. This new public address is pingable,
-and IPV6 Hurricane Electric tunnel traffic passes through the GigaHub
+and IPv6 Hurricane Electric tunnel traffic passes through the GigaHub
 without problem.
 
-Note, this additional, dedicated, IPV6 router doesn't prevent the rest
-of the users on my home network (who don't care about IPV6
-connectivity) from routing their normal IPV4 traffic directly through
+Note, this additional, dedicated, IPv6 router doesn't prevent the rest
+of the users on my home network (who don't care about IPv6
+connectivity) from routing their normal IPv4 traffic directly through
 the GigaHub.
 
 # Get your hands on an OpenWrt router
@@ -116,7 +116,7 @@ All the steps below can be performed using the router's
 [LuCi](https://openwrt.org/docs/guide-user/luci/start) web interface
 as well, but that's not documented here.
 
-# Configure the wan (IPV4) network interface
+# Configure the wan (IPv4) network interface
 
 The router's ethernet WAN port should be connected to the same network
 as the PPPoE server (i.e. the Bell GigaHub).
@@ -149,7 +149,7 @@ $ wget -4qO- api.ipify.org; echo
 123.456.789.123
 ```
 
-Get your WAN IPV4 address from OpenWrt's network status:
+Get your WAN IPv4 address from OpenWrt's network status:
 
 ```
 $ ifstatus wan |  jsonfilter -e '@["ipv4-address"][0].address'
@@ -160,11 +160,11 @@ The two should match. If they don't, or if one doesn't work, then
 something is wrong.
 
 You'll need this public IP4 address later to create the [Hurricane
-Electric IPV6 tunnel](https://tunnelbroker.net).
+Electric IPv6 tunnel](https://tunnelbroker.net).
 
 # Install the tunnel software
 
-Install the [OpenWRT IPV6 tunnel
+Install the [OpenWRT IPv6 tunnel
 software](https://openwrt.org/docs/guide-user/network/ipv6_ipv4_transitioning),
 and reboot the router.
 
@@ -174,21 +174,21 @@ opkg install 6in4
 reboot
 ```
 
-# Create the Hurricane Electric IPV6 tunnel.
+# Create the Hurricane Electric IPv6 tunnel.
 
 Visit [tunnelbroker.net](https://tunnelbroker.net) and create a new
-IPV6 tunnel. You'll need your router's public IPV4 address (the WAN
+IPv6 tunnel. You'll need your router's public IPv4 address (the WAN
 address from above) to setup the new tunnel.
 
 After it's setup, you'll need the need the Hurricane Electric tunnel
-information below to configure the OpenWrt IPV6 wan6 interface.
+information below to configure the OpenWrt IPv6 wan6 interface.
 
 ![Hurricane Electric UI tunnel details](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Tunnel.png)
 ![Hurrican Electric UI tunnel advanced](/assets/images/2023/2023-05-16-ipv6-tunnel-on-bell-fibre/TunnelDetail-IPv6Advanced.png)
 
-# Configure the wan6 (IPV6) network interface
+# Configure the wan6 (IPv6) network interface
 
-Finally, configure the IPV6 wan6 interface. Substitute the
+Finally, configure the IPv6 wan6 interface. Substitute the
 "henet-...."  place holders below using the matching values from the
 Hurricane Electric "Tunnel Details" page shown above.
 
@@ -207,9 +207,9 @@ uci commit network
 ifup wan6
 ```
 
-# Check IPV6 Connectivity
+# Check IPv6 Connectivity
 
-You should now have IPV6 connectivity via the tunnel.
+You should now have IPv6 connectivity via the tunnel.
 
 Check on the router first.
 ```
@@ -218,14 +218,14 @@ PING ipv6.google.com (2607:f8b0:400b:803::200e): 56 data bytes
 64 bytes from 2607:f8b0:400b:803::200e: seq=0 ttl=121 time=11.088 ms
 ```
 
-The router should be serving correctly configured IPV6 configuration
+The router should be serving correctly configured IPv6 configuration
 to DHCPv6 LAN clients. The example below is the enthernet interface
 configuration of a Mac that is connected to the router's LAN
 interface.
 
 Expect to see multiple inet6 addresses. At least one of them should
 begin with the "henet-routed-prefix-64" value that you provided
-above. For example, If the IPV6 routed/64 prefix value is
+above. For example, If the IPv6 routed/64 prefix value is
 `2012:345:67:891/64` then you would expect to see something similar to
 the following network configuration on the client ethernet interface:
 
@@ -245,10 +245,10 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	media: autoselect (1000baseT <full-duplex,flow-control>)
 	status: active
 
-* - this is the IPV6 tunnel prefix provided by the router via DHCPv6
+* - this is the IPv6 tunnel prefix provided by the router via DHCPv6
 ```
 
-The client should have IPV6 connectivity:
+The client should have IPv6 connectivity:
 
 ```
 $ ping6 ipv6.google.com
@@ -257,7 +257,7 @@ PING6(56=40+8+8 bytes) 1234:567:8a:9b1:b104:1994:896:aa46 --> 2607:f8b0:400b:803
 ```
 
 If this much works, then every client that connects to the router
-should, in theory, have IPV6 internet access. Including wireless
+should, in theory, have IPv6 internet access. Including wireless
 clients, if you enable wifi on the router.
 
 # WAN IP4 Address Update
@@ -265,9 +265,9 @@ clients, if you enable wifi on the router.
 If the WAN's IP4 public address changes (which it will regularly on
 Bell's network) then the Hurricane Electric tunnel must be
 updated. The OpenWrt 6in4 tunnel interface should take care of this
-automatically. If it doesn't succesfully update your IPV4 endpoint
+automatically. If it doesn't succesfully update your IPv4 endpoint
 address at [tunnelbroker.net](https://tunnelbroker.net), then you will
-lose IPV6 connectivity.
+lose IPv6 connectivity.
 
 Note that I have experienced occassions when it didn't update
 correctly (for reasons that I do not yet understand). However, usually
@@ -275,7 +275,7 @@ it does update correctly.
 
 Debug this by logging into
 [tunnelbroker.net](https://tunnelbroker.net) and checking the "Client
-IPV4 Address" (see the Tunnel Details image above). Compare it to the
+IPv4 Address" (see the Tunnel Details image above). Compare it to the
 OpenWrt router's WAN interface IP4 address. They should be identical.
 
 You can also check the router logs to see if the update happened as
@@ -292,8 +292,8 @@ there are no 6in4-wan6 log messages then the log messages from the
 last update may have been lost do to the limited size of the log file
 and you should consider the update status to be unknown.
 
-If you need to force a tunnelbroker.net Client IPV4 Address update
-then try restarting the IPV4 wan interface ("wan", not "wan6"), or
+If you need to force a tunnelbroker.net Client IPv4 Address update
+then try restarting the IPv4 wan interface ("wan", not "wan6"), or
 execute an http get on the "ExampleUpdate URL" seen in the Tunnel
 Details image above. You can execute this on the router command line
 as follows:
@@ -303,7 +303,7 @@ $ wget -4qO- $ https://henet-username:henet-update-key@ipv4.tunnelbroker.net/nic
 nochg 123.456.789.123
 ```
 
-If the reply is "nochg ..." then the tunnel's Client IPV4 Address was
+If the reply is "nochg ..." then the tunnel's Client IPv4 Address was
 up to date. If it wasn't up to date, and was updated, then the wget
 reply will reflect that.
 

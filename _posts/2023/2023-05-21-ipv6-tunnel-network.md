@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "IPV6 Tunnel Local Network Configuration"
+title:  "IPv6 Tunnel Local Network Configuration"
 date:   2023-05-21
 categories: IPV6
 ---
 
 This is a followup to my post about configuring a [Hurricane Electric
-IPv6 tunnel](https://tunnelbroker.net/) on an [OpenWrt IPv6
-Tunnel](/ipv6/2023/05/16/ipv6-tunnel-on-bell-fibre.html) in order to
+IPv6 tunnel](https://tunnelbroker.net/) on an [OpenWrt
+tunnel router](/ipv6/2023/05/16/ipv6-tunnel-on-bell-fibre.html) in order to
 work around [lack of IPv6 support by
 Bell](https://twitter.com/bellnoipv6?lang=en). It describes how I
 integrated a tunnel router into my local home network.
