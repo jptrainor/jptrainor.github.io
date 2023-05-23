@@ -2,7 +2,7 @@
 layout: post
 title:  "IPv6 Tunnel Local Network Configuration"
 date:   2023-05-21
-categories: IPV6
+categories: IPv6
 ---
 
 This is a followup to my post about configuring a [Hurricane Electric
@@ -26,9 +26,9 @@ routine network traffic transiting the IPv6 tunnel needlessly. It
 would just get in the way and slow down everything with no
 advantage. The tunnel should be totally out of the loop for the rest
 of the ordinary users of my home network, and for most of my regular
-work. There's no advantage to exposing IPV6 to the entire network as
+work. There's no advantage to exposing IPv6 to the entire network as
 long as [Bell continues to not support
-IPV6](https://twitter.com/bellnoipv6?lang=en) natively.
+IPv6](https://twitter.com/bellnoipv6?lang=en) natively.
 
 3. I have no interest in getting a new (expensive) primary router to
 take over all the routing on my network. Most of the traffic has to be
@@ -58,7 +58,7 @@ the GigaHub itself would do if it was acting as the DHCP server). This
 is optional, but you'll see later that it is part of the routing
 solution to access the 172.16.1.0/24 sub-network
 
-Note that this DHCP server only serves clients on the IPV4-only
+Note that this DHCP server only serves clients on the IPv4-only
 192.168.1.0/24 local area network. It has no role to play in providing
 IPv6 support. Clients on this LAN only have IPv4 internet access.
 
