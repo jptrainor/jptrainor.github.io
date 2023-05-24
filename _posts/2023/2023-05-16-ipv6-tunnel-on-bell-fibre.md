@@ -15,9 +15,10 @@ mostly generic, and is still applicable if you have a different ISP.
 
 [TLDR: jump to the solution](#the-solution)
 
-Bell Canada's residential fiber internet service doesn't support
-IPv6. An IPv6-over-IPv4 tunnel is a solution, and [Hurricane
-Electric](https://www.he.net/) provide a free [IPv6 over IPv4 tunnel
+Bell Canada's residential fiber internet service [doesn't support
+IPv6](https://twitter.com/bellnoipv6?lang=en). An IPv6-over-IPv4
+tunnel is a solution, and [Hurricane Electric](https://www.he.net/)
+provide a free [IPv6 over IPv4 tunnel
 service](https://tunnelbroker.net). Should be simple, right?
 
 # Not so simple
