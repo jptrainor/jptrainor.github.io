@@ -296,7 +296,7 @@ and you should consider the update status to be unknown.
 
 If you need to force a [tunnelbroker.net](https://tunnelbroker.net)
 Client IPv4 Address update then try restarting the IPv4 wan interface
-("wan", not "wan6"), or execute an http get on the "ExampleUpdate URL"
+("wan", not "wan6"), or execute an http GET on the "ExampleUpdate URL"
 seen in the Tunnel Details image above. You can execute this on the
 router command line as follows:
 
