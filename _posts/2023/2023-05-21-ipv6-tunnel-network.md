@@ -50,7 +50,7 @@ provided by the GigaHub.
 
 For DHCP, I have (already had) a dedicated DHCP / DNS server running
 on the network. It is a modest DHCP server (but nonetheless much more
-capable that that provided by the GigaHub). It's nothing more than
+capable than that provided by the GigaHub). It's nothing more than
 OpenWrt running on an old router and configured to provide only DHCP
 services. It provides routing information to clients using DHCP
 options and configures the Bell GigaHub as the default route (just as
