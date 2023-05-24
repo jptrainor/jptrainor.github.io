@@ -309,6 +309,19 @@ If the reply is "nochg ..." then the tunnel's Client IPv4 Address was
 up to date. If it wasn't up to date, and was updated, then the wget
 reply will reflect that.
 
+Here is a small script that you can leave on the tunnel router to make
+that easier, should it be necessary to force an update:
+
+```
+# /bin/sh
+
+HENET_TUNNEL_ID="$(uci get network.wan6.tunnelid)"
+HENET_USERNAME="$(uci get network.wan6.username)"
+HENET_UPDATE_KEY="$(uci get network.wan6.password)"
+
+wget -4qO- https://${HENET_USERNAME}:${HENET_UPDATE_KEY}@ipv4.tunnelbroker.net/nic/update?hostname=${HENET_TUNNEL_ID}
+```
+
 # Addendum
 
 Read my [follow up post](/ipv6/2023/05/21/ipv6-tunnel-network.html)
