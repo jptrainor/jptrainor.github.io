@@ -249,7 +249,8 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 * - this is the IPv6 tunnel prefix provided by the router via DHCPv6
 ```
 
-The client should have IPv6 connectivity:
+The client should have IPv6 connectivity. This is what I see on my
+Mac:
 
 ```
 $ ping6 ipv6.google.com
