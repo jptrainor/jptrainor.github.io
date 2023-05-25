@@ -34,7 +34,7 @@ IPv6](https://twitter.com/bellnoipv6?lang=en) natively.
 take over all the routing on my network. Most of the traffic has to be
 routed normally by the [Bell
 GigaHub](https://support.bell.ca/internet/products/home-hub-4000-modem). The
-IPv6 Tunnel Router, for its part, won't handle alot of traffic and
+IPv6 Tunnel Router, for its part, won't handle a lot of traffic and
 doesn't have to be fast to meet my needs.
 
 With that in mind, here, unsurprisingly, is the network topology:
