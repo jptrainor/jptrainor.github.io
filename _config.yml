@@ -53,4 +53,7 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-exclude: [legacy]
+exclude:
+  - legacy
+  - assets/legacy
+  
