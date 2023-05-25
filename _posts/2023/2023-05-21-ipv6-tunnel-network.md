@@ -193,3 +193,9 @@ option 121:
 $ netstat -rn | grep 172
 172.16.1/24        192.168.1.5        UGSc              en0
 ````
+
+# Addendum
+
+The Google Draw [topology
+diagram](https://docs.google.com/drawings/d/1VmjPfwSAUXnHTW2uT9ya3-F6H8S_PzRNcfCQ6z80MTQ/edit?usp=sharing)
+is free to use if anyone finds it useful.
