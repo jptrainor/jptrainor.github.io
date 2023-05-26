@@ -172,6 +172,8 @@ The DHCP option 121 routing configuration entry looks like this:
 
 ![tunnel router firewall config](/assets/images/2023/2023-05-21-ipv6-tunnel-network/DHCPOption121StaticRoute.png)
 
+**_See addendum 2 for an important note about DHCP option 121._**
+
 Here is what the final DHCP config looks like on a Mac on the LAN:
 
 ```
@@ -196,6 +198,19 @@ $ netstat -rn | grep 172
 
 # Addendum
 
-The Google Draw [topology
+
+1. The Google Draw [topology
 diagram](https://docs.google.com/drawings/d/1VmjPfwSAUXnHTW2uT9ya3-F6H8S_PzRNcfCQ6z80MTQ/edit?usp=sharing)
 is free to use if anyone finds it useful.
+
+2. The picture above with the option 121 (static route) highlighted
+also shows use of dhcp option 3 (default gateway). The two are
+actually not compatible. If the dhcp server sends option 121 then the
+dhcp client will ignore option 3, and your client will not have a
+default gateway configured (if it is a strict implementation of
+[RFC3442](https://www.rfc-editor.org/rfc/rfc3442)). You have to use
+option 121 to send both routes. The following configuration does that:
+
+````
+     121,0.0.0.0/0,192.168.1.1,172.16.1.0/24,192.168.1.5
+````
