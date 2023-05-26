@@ -123,7 +123,7 @@ The router's ethernet WAN port should be connected to the same network
 as the PPPoE server (i.e. the Bell GigaHub).
 
 Starting from a fresh install, log into your router using ssh and run
-the following configuration script on your router to get an internet
+the following configuration commands on your router to get an internet
 connection.
 
 You need the same username and password that your Bell GigaHub uses to
