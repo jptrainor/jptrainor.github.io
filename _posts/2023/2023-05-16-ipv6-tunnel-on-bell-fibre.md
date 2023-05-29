@@ -76,7 +76,7 @@ the GigaHub.
 
 # Get your hands on an OpenWrt router
 
-For those who have never used OpenWrt: You need an router that is
+For those who have never used OpenWrt: You need a router that is
 [supported by OpenWrt](https://openwrt.org/toh/start), and of course
 you need to
 [install](https://openwrt.org/docs/guide-user/installation/generic.flashing)
